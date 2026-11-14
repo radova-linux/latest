@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{advisory_id}}: {{title}} - Radova Latest</title>
+<meta name="description" content="{{summary}}">
+<meta name="radova:title" content="{{title}}">
+<meta name="radova:slug" content="{{slug}}">
+<meta name="radova:date" content="{{date}}">
+<meta name="radova:summary" content="{{summary}}">
+<meta name="radova:tags" content="{{tags}}">
+<meta name="radova:advisory_id" content="{{advisory_id}}">
+<meta name="radova:severity" content="{{severity}}">
+<meta name="radova:affected_versions" content="{{affected_versions}}">
+<meta name="radova:patched_versions" content="{{patched_versions}}">
+<meta name="radova:cve" content="{{cve}}">
+<meta name="radova:status" content="{{status}}">
+</head>
+<body>
+<main id="main">
+<article>
+<header>
+<p><a href="/latest/security/">Security</a></p>
+<h1>{{advisory_id}}: {{title}}</h1>
+<p>Published <time datetime="{{date}}">{{date_text}}</time></p>
+</header>
+<!-- Delete the CVE row (and its meta tag) when there is none. -->
+<dl>
+<dt>Advisory ID</dt>
+<dd>{{advisory_id}}</dd>
+<dt>Severity</dt>
+<dd>{{Severity}}</dd>
+<dt>Status</dt>
+<dd>{{Status}}</dd>
+<dt>Affected versions</dt>
+<dd>{{affected_versions}}</dd>
+<dt>Patched versions</dt>
+<dd>{{patched_versions}}</dd>
+<dt>CVE</dt>
+<dd><a href="https://www.cve.org/CVERecord?id={{cve}}">{{cve}}</a></dd>
+</dl>
+<section aria-labelledby="summary">
+<h2 id="summary">Summary</h2>
+<p>{{summary_body}}</p>
+</section>
+<section aria-labelledby="impact">
+<h2 id="impact">Impact</h2>
+<p>{{impact}}</p>
+</section>
+<section aria-labelledby="mitigation">
+<h2 id="mitigation">Mitigation</h2>
+<p>{{mitigation}}</p>
+</section>
+<section aria-labelledby="credits">
+<h2 id="credits">Credits</h2>
+<p>{{credits}}</p>
+</section>
+<section aria-labelledby="timeline">
+<h2 id="timeline">Timeline</h2>
+<ol>
+<li><time datetime="{{yyyy-mm-dd}}">{{date_text}}</time>: {{event}}</li>
+</ol>
+</section>
+</article>
+</main>
+</body>
+</html>

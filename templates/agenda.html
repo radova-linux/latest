@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} - Radova Latest</title>
+<meta name="description" content="{{summary}}">
+<meta name="radova:title" content="{{title}}">
+<meta name="radova:slug" content="{{slug}}">
+<meta name="radova:date" content="{{date}}">
+<meta name="radova:summary" content="{{summary}}">
+<meta name="radova:tags" content="{{tags}}">
+<meta name="radova:start_time" content="{{start_time}}">
+<meta name="radova:end_time" content="{{end_time}}">
+<meta name="radova:location" content="{{location}}">
+<meta name="radova:register_url" content="{{register_url}}">
+<meta name="radova:status" content="{{status}}">
+</head>
+<body>
+<main id="main">
+<article>
+<header>
+<p><a href="/latest/agenda/">Agenda</a></p>
+<h1>{{title}}</h1>
+<p>Published <time datetime="{{date}}">{{date_text}}</time></p>
+</header>
+<!-- Delete the End and Registration rows (and their meta tags) when not set. -->
+<dl>
+<dt>Start</dt>
+<dd><time datetime="{{start_time}}">{{start_text}} WIB</time></dd>
+<dt>End</dt>
+<dd><time datetime="{{end_time}}">{{end_text}} WIB</time></dd>
+<dt>Location</dt>
+<dd>{{location}}</dd>
+<dt>Status</dt>
+<dd>{{Status}}</dd>
+<dt>Registration</dt>
+<dd><a href="{{register_url}}">Register for this event</a></dd>
+</dl>
+<p>{{body}}</p>
+</article>
+</main>
+</body>
+</html>

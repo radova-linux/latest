@@ -49,3 +49,25 @@ Lists (`tags`, `affected_versions`, `patched_versions`, `cve`) are comma-separat
 | `patched_versions` | yes | e.g. `1.2`, or `none` while unpatched |
 | `cve` | no | e.g. `CVE-2026-12345` |
 | `status` | yes | `investigating`, `mitigated`, `resolved`, `informational` |
+
+## Article fields
+
+| Field | Required | Values |
+|---|---|---|
+| `reading_time` | yes | Whole minutes: word count / 200, rounded up, minimum 1 |
+
+## Templates
+
+| File | Use for |
+|---|---|
+| `post.html` | Article and News detail pages |
+| `agenda.html` | Agenda detail pages |
+| `security.html` | Security advisory detail pages |
+| `listing.html` | Category pages and their `/page/<n>/` pages |
+
+## Publishing a post
+
+1. Copy the matching template to `latest/<type>/<slug>/index.html` and replace every `{{...}}`. `{{Type}}`/`{{Status}}`/`{{Severity}}` are the capitalised display forms; `*_text` is the human date, e.g. `5 Dec 2026, 19:00`.
+2. Add the post to the top of `latest/<type>/index.html`. When that list passes 10 items, move the oldest into `latest/<type>/page/2/` (and so on) and add the pagination nav.
+3. Add it to the top of `latest/index.html` and drop the 11th item there.
+4. Agenda only: `latest/agenda/index.html` has two lists. **Upcoming** is sorted by `start_time`, soonest first; **Past Events** is sorted by `start_time`, newest first. Move events from Upcoming to Past by hand once they end.

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} - Radova Latest</title>
+<meta name="description" content="{{summary}}">
+<meta name="radova:title" content="{{title}}">
+<meta name="radova:slug" content="{{slug}}">
+<meta name="radova:date" content="{{date}}">
+<meta name="radova:summary" content="{{summary}}">
+<meta name="radova:tags" content="{{tags}}">
+<!-- Article only; delete for News: -->
+<meta name="radova:reading_time" content="{{reading_time}}">
+</head>
+<body>
+<main id="main">
+<article>
+<header>
+<p><a href="/latest/{{type}}/">{{Type}}</a></p>
+<h1>{{title}}</h1>
+<!-- Drop "&middot; N min read" for News. -->
+<p><time datetime="{{date}}">{{date_text}}</time> &middot; {{reading_time}} min read</p>
+<p>Tags: {{tags}}</p>
+</header>
+<p>{{body}}</p>
+</article>
+</main>
+</body>
+</html>
