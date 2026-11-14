@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Page 1 is latest/{{type}}/index.html; page N>1 adds " - Page N" and lives in latest/{{type}}/page/N/index.html. -->
+    <title>{{Type}} - Page {{n}} - Radova Latest</title>
+    <meta name="description" content="{{description}}">
+  </head>
+  <body>
+    <main id="main">
+      <h1>{{Type}}</h1>
+      <!-- 10 items per page, newest first. -->
+      <ol>
+        <li>
+          <article>
+            <h2><a href="/latest/{{type}}/{{slug}}/">{{title}}</a></h2>
+            <p><time datetime="{{date}}">{{date_text}}</time></p>
+            <p>{{summary}}</p>
+          </article>
+        </li>
+      </ol>
+      <!-- Omit on a single-page category. Previous from page 2 goes to /latest/{{type}}/. No Next on the last page. -->
+      <nav aria-label="Pagination">
+        <a href="/latest/{{type}}/page/{{n-1}}/" rel="prev">Previous</a>
+        <a href="/latest/{{type}}/page/{{n+1}}/" rel="next">Next</a>
+      </nav>
+    </main>
+  </body>
+</html>

@@ -6,3 +6,5 @@ new and article repository
 - article
 - news
 - security
+
+Post metadata and URL structure: [templates/README.md](templates/README.md)
