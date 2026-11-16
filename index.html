@@ -7,6 +7,7 @@
     <meta name="description" content="Events, articles, news, and security advisories from Radova Linux, newest first.">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
     <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/phosphor/regular/style.css">
     <link rel="stylesheet" href="/assets/site.css">
     <script src="/assets/htmx.min.js" defer></script>
     <script src="/assets/site.js" defer></script>
@@ -14,7 +15,8 @@
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header>
-      <a class="brand" href="/">RADOVA</a>
+      <a class="brand" href="/"><i class="ph ph-terminal-window" aria-hidden="true"></i> RADOVA</a>
+      <a class="button button--outline-navy" href="/"><i class="ph ph-arrow-left" aria-hidden="true"></i> Back to Home</a>
     </header>
     <main id="main">
       <header class="editorial-header">
@@ -26,18 +28,18 @@
       </header>
       <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
-          <li><a href="/latest/" aria-current="page">All Latest</a></li>
-          <li><a href="/latest/agenda/">Agenda</a></li>
-          <li><a href="/latest/article/">Article</a></li>
-          <li><a href="/latest/news/">News</a></li>
-          <li><a href="/latest/security/">Security</a></li>
+          <li><a href="/latest/" aria-current="page"><i class="ph ph-squares-four" aria-hidden="true"></i> All Latest</a></li>
+          <li><a href="/latest/agenda/"><i class="ph ph-calendar-blank" aria-hidden="true"></i> Agenda</a></li>
+          <li><a href="/latest/article/"><i class="ph ph-article" aria-hidden="true"></i> Article</a></li>
+          <li><a href="/latest/news/"><i class="ph ph-newspaper" aria-hidden="true"></i> News</a></li>
+          <li><a href="/latest/security/"><i class="ph ph-shield-warning" aria-hidden="true"></i> Security</a></li>
         </ul>
       </nav>
       <ol class="post-grid">
         <li>
           <article class="post-row post-row--news">
             <div class="post-row__main">
-              <p class="post-row__kicker"><span class="badge badge--type">News</span></p>
+              <p class="post-row__kicker"><span class="badge badge--type"><i class="ph ph-newspaper" aria-hidden="true"></i> News</span></p>
               <h2><a href="/latest/news/introducing-radova-latest/">Introducing Radova Latest</a></h2>
               <p>Radova Latest is the new home for Radova Linux events, articles, news, and security advisories, newest first.</p>
               <p class="meta"><time datetime="2026-11-14T10:00:00+07:00">14 Nov 2026</time></p>
@@ -53,7 +55,7 @@
         <li>
           <article class="post-row post-row--article">
             <div class="post-row__main">
-              <p class="post-row__kicker"><span class="badge badge--type">Article</span></p>
+              <p class="post-row__kicker"><span class="badge badge--type"><i class="ph ph-article" aria-hidden="true"></i> Article</span></p>
               <h2><a href="/latest/article/what-radova-linux-is-for/">What Radova Linux Is For</a></h2>
               <p>An introduction to Radova Linux: an operating system for libraries, archives, and digital assets, its four built-in applications, and the principles behind them.</p>
               <p class="meta"><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time><span class="sep"> · </span><span>2 min read</span></p>
@@ -69,7 +71,7 @@
       </ol>
     </main>
     <footer>
-      <p>&copy; 2026 Radova Linux</p>
+      <p>© 2026 Radova Linux</p>
     </footer>
   </body>
 </html>

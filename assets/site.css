@@ -1,50 +1,58 @@
 /* Radova theme on top of pico.classless.min.css. Load after Pico.
    Sections: fonts · tokens · base · site chrome · editorial-header · tab-grid · post-grid/post-row
-   · meta-dl · badge · button · pager · single-split · editorial-prose */
+   · meta-dl · badge · button · icons · pager · single-split · editorial-prose */
 
 /* ---------- Fonts ---------- */
 @font-face {
   font-family: "Lato";
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
   src: url("fonts/lato-latin-400-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Lato";
   font-weight: 700;
+  font-style: normal;
   font-display: swap;
   src: url("fonts/lato-latin-700-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Roboto";
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
   src: url("fonts/roboto-latin-400-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Roboto";
   font-weight: 700;
+  font-style: normal;
   font-display: swap;
   src: url("fonts/roboto-latin-700-normal.woff2") format("woff2");
 }
 
-/* ---------- Tokens ----------
-   Same selector as Pico's light theme so this file wins by load order, no !important. */
+/* ---------- Tokens (60% Background / 30% Text & Secondary / 10% Accent CTA) ---------- */
 :root:not([data-theme=dark]),
 [data-theme=light] {
   --radova-navy: #0E0347;
+  --radova-blue: #0B2E8D;
   --radova-red: #A10000;
   --radova-red-2: #BB080B;
   --radova-red-3: #DB000F;
-  --radova-blue: #0B2E8D;
   --radova-lavender: #F7F6FF;
   --radova-white: #FFFFFF;
-  --radova-hairline: rgba(14, 3, 71, 0.12);
-  --radova-heading-font: "Lato", system-ui, sans-serif;
+  --radova-muted: #4A4668;
+  --radova-hairline: rgba(14, 3, 71, 0.14);
 
-  --pico-font-family: "Roboto", system-ui, sans-serif;
+  /* Roboto = Heading (H1–H6) | Lato = Body Text */
+  --radova-heading-font: "Roboto", system-ui, -apple-system, sans-serif;
+  --radova-body-font: "Lato", system-ui, -apple-system, sans-serif;
+
+  --pico-font-family: var(--radova-body-font);
   --pico-background-color: var(--radova-lavender);
   --pico-color: var(--radova-navy);
+  --pico-muted-color: var(--radova-muted);
   --pico-h1-color: var(--radova-navy);
   --pico-h2-color: var(--radova-navy);
   --pico-h3-color: var(--radova-navy);
@@ -55,12 +63,12 @@
   --pico-primary: var(--radova-red);
   --pico-primary-background: var(--radova-red);
   --pico-primary-border: var(--radova-red);
-  --pico-primary-underline: rgba(161, 0, 0, 0.5);
+  --pico-primary-underline: rgba(161, 0, 0, 0.45);
   --pico-primary-hover: var(--radova-red-2);
   --pico-primary-hover-background: var(--radova-red-2);
   --pico-primary-hover-border: var(--radova-red-2);
   --pico-primary-hover-underline: var(--radova-red-2);
-  --pico-primary-focus: rgba(219, 0, 15, 0.5);
+  --pico-primary-focus: rgba(219, 0, 15, 0.35);
   --pico-primary-inverse: var(--radova-white);
 
   --pico-card-background-color: var(--radova-white);
@@ -68,31 +76,76 @@
   --pico-blockquote-border-color: var(--radova-red);
 }
 
-/* ---------- Base ---------- */
-h1, h2, h3, h4, h5, h6 {
-  --pico-font-family: var(--radova-heading-font);
+/* ---------- Base & Typography Hierarchy ---------- */
+html {
+  font-size: 16px;
 }
 
-/* Figma heading scale (56/48/40/32/24/20 px) on wide screens; Pico's smaller scale below.
-   Pico's root is 20px at >=1280px, so rem = px / 20. */
-@media (min-width: 1024px) {
-  h1 { --pico-font-size: 2.8rem; }
-  h2 { --pico-font-size: 2.4rem; }
-  h3 { --pico-font-size: 2rem; }
-  h4 { --pico-font-size: 1.6rem; }
-  h5 { --pico-font-size: 1.2rem; }
-  h6 { --pico-font-size: 1rem; }
-}
-
-/* Long words and URLs wrap instead of widening the page. */
 body {
+  font-family: var(--radova-body-font);
+  font-size: 1rem; /* Normal 16px */
+  line-height: 1.6;
+  color: var(--radova-navy);
+  background-color: var(--radova-lavender);
   overflow-wrap: break-word;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  --pico-font-family: var(--radova-heading-font);
+  font-family: var(--radova-heading-font);
+  font-weight: 700;
+  color: var(--radova-navy);
+  letter-spacing: -0.015em;
+}
+
+/* Skala Heading Responsif: Mobile -> Desktop (56 / 48 / 40 / 32 / 24 / 20 px) */
+h1 {
+  --pico-font-size: clamp(2.25rem, 4.5vw, 3.5rem); /* 36px -> 56px */
+  --pico-line-height: 1.12;
+}
+h2 {
+  --pico-font-size: clamp(1.875rem, 3.8vw, 3rem); /* 30px -> 48px */
+  --pico-line-height: 1.18;
+}
+h3 {
+  --pico-font-size: clamp(1.5rem, 3vw, 2.5rem); /* 24px -> 40px */
+  --pico-line-height: 1.22;
+}
+h4 {
+  --pico-font-size: clamp(1.375rem, 2.4vw, 2rem); /* 22px -> 32px */
+  --pico-line-height: 1.25;
+}
+h5 {
+  --pico-font-size: 1.5rem; /* 24px */
+  --pico-line-height: 1.3;
+}
+h6 {
+  --pico-font-size: 1.25rem; /* 20px */
+  --pico-line-height: 1.35;
+}
+
+/* Skala Body Text Guideline (Large 20px, Medium 18px, Normal 16px, Small 14px) */
+.text-large {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.55;
+}
+.text-medium {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.6;
+}
+.text-normal {
+  font-size: 1rem; /* 16px */
+  line-height: 1.6;
+}
+.text-small {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+}
+
 main p {
   max-width: 65ch;
 }
 
-/* Read by screen readers, not shown (used for site.js announcements). */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -102,20 +155,19 @@ main p {
   white-space: nowrap;
 }
 
-/* Text separators stay in the HTML for Lynx and screen readers; spacing replaces them on screen. */
 .sep {
   display: none;
 }
 
 .eyebrow {
-  margin-bottom: 0.25rem;
-  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--radova-body-font);
+  font-size: 0.875rem; /* Small 14px Bold */
   font-weight: 700;
+  letter-spacing: 0.04em;
   color: var(--radova-red);
 }
 
-/* Pico adds a large top margin to a heading that follows a paragraph; a title right under its
-   eyebrow, badge or back link belongs with it. */
 .editorial-header h1,
 .post-row h2,
 .post-row h3,
@@ -123,7 +175,7 @@ main p {
   margin-top: 0;
 }
 
-/* ---------- Site chrome ---------- */
+/* ---------- Site Chrome (<header> & <footer>) ---------- */
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -131,53 +183,89 @@ main p {
 .skip-link:focus {
   left: 1rem;
   top: 1rem;
-  z-index: 10;
+  z-index: 100;
   padding: 0.5rem 1rem;
-  background: var(--pico-primary-background);
-  color: var(--pico-primary-inverse);
+  border-radius: 6px;
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--radova-red);
+  color: var(--radova-white);
+}
+
+body > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--radova-hairline);
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--radova-heading-font);
+  font-size: 1.25rem; /* 20px Bold */
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-decoration: none;
   color: var(--radova-red);
 }
-
-body > footer {
-  color: var(--pico-muted-color);
+.brand:hover,
+.brand:focus-visible {
+  color: var(--radova-red-2);
 }
 
-/* ---------- .editorial-header: split page header (title left, description right) ---------- */
+body > footer {
+  margin-top: 3.5rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--radova-hairline);
+  font-size: 0.875rem; /* Small 14px */
+  color: var(--radova-muted);
+}
+body > footer p {
+  margin: 0;
+}
+
+/* ---------- .editorial-header ---------- */
 .editorial-header {
   display: grid;
-  gap: var(--pico-spacing);
-  margin-bottom: calc(var(--pico-spacing) * 2);
+  gap: 1rem;
+  padding-bottom: 1.75rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--radova-navy);
 }
 .editorial-header h1,
 .editorial-header > :nth-child(2) > :last-child,
 .editorial-header > p {
   margin-bottom: 0;
 }
+.editorial-header > p,
+.editorial-header > :nth-child(2) p {
+  font-size: 1.125rem; /* Medium 18px */
+  line-height: 1.6;
+  color: var(--radova-muted);
+}
+
 @media (min-width: 768px) {
   .editorial-header {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.35fr 0.65fr;
     align-items: end;
+    gap: 2rem;
   }
-  /* Right column: the description, plus an optional action under it. */
   .editorial-header > :nth-child(2) {
     justify-self: end;
-    max-width: 40ch;
+    max-width: 42ch;
   }
 }
 
-/* ---------- .tab-grid: category tabs as equal bordered cells ---------- */
+/* ---------- .tab-grid: category tabs ---------- */
 nav.tab-grid {
   display: block;
-  margin-bottom: calc(var(--pico-spacing) * 2);
+  margin-bottom: 2rem;
 }
-/* The 1px gap over a hairline background draws the cell borders. */
 nav.tab-grid ul {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -199,15 +287,20 @@ nav.tab-grid ul {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.45rem;
   min-height: 52px;
   margin: 0;
-  padding: 0.5rem 1rem;
+  padding: 0.65rem 1rem;
   border-radius: 0;
   border-bottom: 3px solid transparent;
+  font-family: var(--radova-body-font);
+  font-size: 1rem; /* Normal 16px */
+  font-weight: 400;
   text-align: center;
   text-decoration: none;
   color: var(--radova-navy);
   background: var(--radova-lavender);
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
 }
 .tab-grid a:hover,
 .tab-grid a:focus-visible {
@@ -216,6 +309,7 @@ nav.tab-grid ul {
 }
 .tab-grid a[aria-current="page"] {
   font-weight: 700;
+  color: var(--radova-red);
   background: var(--radova-white);
   border-bottom-color: var(--radova-red);
 }
@@ -228,7 +322,7 @@ nav.tab-grid ul {
   }
 }
 
-/* ---------- .post-grid / .post-row: bordered listing, split row ---------- */
+/* ---------- .post-grid / .post-row (Card Surface) ---------- */
 .post-grid {
   display: grid;
   gap: 1px;
@@ -249,18 +343,18 @@ nav.tab-grid ul {
   padding: 0;
   border-radius: 0;
   background: var(--radova-hairline);
+  transition: background-color 160ms ease;
 }
-/* Grid children may shrink below their content so long words and code never widen the page. */
 .post-row > * {
   min-width: 0;
 }
 @media (min-width: 768px) {
   .post-row {
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1.25fr 0.75fr;
   }
 }
 .post-row__main {
-  padding: 1.5rem;
+  padding: 1.75rem;
   background: var(--radova-white);
 }
 .post-row__main > :last-child {
@@ -271,16 +365,17 @@ nav.tab-grid ul {
 }
 .post-row h2,
 .post-row h3 {
-  --pico-font-size: 1.4rem;
-  --pico-line-height: 1.25;
-  margin-bottom: 0.5rem;
+  --pico-font-size: 1.5rem; /* H5 24px Roboto Bold */
+  --pico-line-height: 1.28;
+  margin-bottom: 0.65rem;
   overflow-wrap: anywhere;
 }
 .post-row h2 a,
 .post-row h3 a {
+  color: var(--radova-navy);
   text-decoration: none;
+  transition: color 160ms ease;
 }
-/* The title link is stretched over the whole row, so the row is one click target. */
 .post-row h2 a::after,
 .post-row h3 a::after {
   content: "";
@@ -289,7 +384,9 @@ nav.tab-grid ul {
 }
 .post-row:hover h2 a,
 .post-row:hover h3 a {
+  color: var(--radova-red);
   text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 .post-row:has(a:focus-visible) {
   outline: 3px solid var(--radova-red-3);
@@ -297,17 +394,25 @@ nav.tab-grid ul {
 }
 .post-row__main p:not([class]) {
   max-width: 60ch;
+  font-size: 1rem; /* Normal 16px Lato */
+  color: var(--radova-muted);
 }
 .post-row__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 0;
-  padding: 1.5rem;
+  padding: 1.75rem;
   background: var(--radova-lavender);
 }
-/* Visual cue only: the "/ ''" alt text keeps it silent for screen readers; Lynx ignores CSS. */
 .post-row--article .post-row__panel::after,
-.post-row--news .post-row__panel::after {
+.post-row--news .post-row__panel::after,
+.post-row--agenda .post-row__panel::after,
+.post-row--security .post-row__panel::after {
   grid-column: 1 / -1;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
+  font-family: var(--radova-body-font);
+  font-size: 0.9375rem;
   font-weight: 700;
   color: var(--radova-red);
 }
@@ -317,19 +422,25 @@ nav.tab-grid ul {
 .post-row--news .post-row__panel::after {
   content: "Read news \2192" / "";
 }
+.post-row--agenda .post-row__panel::after {
+  content: "View agenda \2192" / "";
+}
+.post-row--security .post-row__panel::after {
+  content: "Read advisory \2192" / "";
+}
 
 .meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.25rem 0.75rem;
-  font-size: 0.875em;
-  color: var(--pico-muted-color);
+  font-size: 0.875rem; /* Small 14px */
+  color: var(--radova-muted);
 }
 
-/* ---------- .empty-state: a category or section with nothing published yet ---------- */
+/* ---------- .empty-state ---------- */
 .empty-state {
-  padding: 2rem 1.5rem;
+  padding: 2.25rem 1.75rem;
   border: 1px solid var(--radova-hairline);
   background: var(--radova-white);
 }
@@ -337,18 +448,18 @@ nav.tab-grid ul {
   font-family: var(--radova-heading-font);
   font-size: 1.25rem;
   font-weight: 700;
+  color: var(--radova-navy);
 }
 .empty-state > :last-child {
   margin-bottom: 0;
 }
 
-/* ---------- .meta-dl: key/value grid with 1px dividers ---------- */
+/* ---------- .meta-dl ---------- */
 .meta-dl {
   display: grid;
   grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
   margin: 0;
 }
-/* Cells stretch to the row so each divider runs straight across; content is centred in it. */
 .meta-dl dt,
 .meta-dl dd {
   display: flex;
@@ -363,28 +474,37 @@ nav.tab-grid ul {
 }
 .meta-dl dt {
   padding-right: 1.25rem;
+  font-size: 0.875rem; /* Small 14px */
+  color: var(--radova-muted);
+}
+.meta-dl dd {
   font-size: 0.875rem;
-  color: var(--pico-muted-color);
+  font-weight: 700;
+  color: var(--radova-navy);
 }
 .meta-dl__lead {
-  font-family: var(--radova-heading-font);
-  font-size: 1.25rem;
+  font-family: var(--radova-body-font);
+  font-size: 1rem; /* Normal 16px Bold */
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 .advisory-id {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 700;
+  color: var(--radova-navy);
 }
 
-/* ---------- .badge: meaning is always in the text; colour only reinforces it ---------- */
+/* ---------- .badge ---------- */
 .badge {
-  display: inline-block;
-  padding: 0.125rem 0.5rem;
-  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--radova-body-font);
+  font-size: 0.875rem; /* Small 14px Bold */
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.35;
   color: var(--radova-white);
   background: var(--radova-navy);
 }
@@ -407,41 +527,115 @@ nav.tab-grid ul {
   background: #E4E1F7;
 }
 
-/* ---------- .button: primary call to action ---------- */
-.button {
+/* ---------- .button (Filled & Outline Variants: Red & Navy) ---------- */
+.button,
+.btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   min-height: 48px;
   padding: 0.75rem 1.5rem;
+  border: 1.5px solid var(--radova-red);
+  border-radius: 6px;
+  font-family: var(--radova-body-font);
+  font-size: 1rem; /* Normal 16px Bold */
   font-weight: 700;
+  line-height: 1.2;
   text-decoration: none;
   color: var(--radova-white);
   background: var(--radova-red);
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 .button:hover,
-.button:focus-visible {
+.button:focus-visible,
+.btn:hover,
+.btn:focus-visible {
   color: var(--radova-white);
   background: var(--radova-red-2);
+  border-color: var(--radova-red-2);
 }
 
-/* ---------- .pager: bordered Previous / Next bar (pagination and post navigation) ---------- */
+/* Varian Outline Red */
+.button--outline,
+.btn-outline-red {
+  color: var(--radova-red);
+  background: transparent;
+  border-color: var(--radova-red);
+}
+.button--outline:hover,
+.button--outline:focus-visible,
+.btn-outline-red:hover,
+.btn-outline-red:focus-visible {
+  color: var(--radova-white);
+  background: var(--radova-red);
+  border-color: var(--radova-red);
+}
+
+/* Varian Filled Navy */
+.button--navy,
+.btn-navy {
+  color: var(--radova-white);
+  background: var(--radova-navy);
+  border-color: var(--radova-navy);
+}
+.button--navy:hover,
+.button--navy:focus-visible,
+.btn-navy:hover,
+.btn-navy:focus-visible {
+  color: var(--radova-white);
+  background: var(--radova-blue);
+  border-color: var(--radova-blue);
+}
+
+/* Varian Outline Navy */
+.button--outline-navy,
+.btn-outline-navy {
+  color: var(--radova-navy);
+  background: transparent;
+  border-color: var(--radova-navy);
+}
+.button--outline-navy:hover,
+.button--outline-navy:focus-visible,
+.btn-outline-navy:hover,
+.btn-outline-navy:focus-visible {
+  color: var(--radova-white);
+  background: var(--radova-navy);
+  border-color: var(--radova-navy);
+}
+
+/* ---------- Phosphor Icons Alignment ---------- */
+i.ph,
+[class^="ph-"],
+[class*=" ph-"] {
+  font-size: 1.125em;
+  line-height: 1;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ---------- .pager ---------- */
 nav.pager {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin-top: calc(var(--pico-spacing) * 2);
+  margin-top: 2rem;
   border: 1px solid var(--radova-hairline);
   background: var(--radova-white);
 }
 .pager a {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
   min-height: 52px;
   padding: 0.75rem 1.25rem;
   font-weight: 700;
   text-decoration: none;
+  color: var(--radova-navy);
 }
 .pager a:hover,
 .pager a:focus-visible {
+  color: var(--radova-red);
   background: var(--radova-lavender);
 }
 .pager a[rel="next"] {
@@ -451,10 +645,10 @@ nav.pager {
   border-left: 1px solid var(--radova-hairline);
 }
 
-/* ---------- .single-split: detail page, context left, prose right ---------- */
+/* ---------- .single-split ---------- */
 .single-split {
   display: grid;
-  gap: calc(var(--pico-spacing) * 2);
+  gap: 2rem;
   margin: 0;
   padding: 0;
   border-radius: 0;
@@ -463,7 +657,6 @@ nav.pager {
 .single-split > * {
   min-width: 0;
 }
-/* Undo Pico's card header (negative margins, tint, rule) on the context column. */
 .single-split > header {
   margin: 0;
   padding: 0;
@@ -471,12 +664,21 @@ nav.pager {
   background: none;
 }
 .single-split h1 {
-  --pico-font-size: 2rem;
+  --pico-font-size: clamp(2rem, 3.5vw, 2.5rem); /* H3 40px on desktop */
   --pico-line-height: 1.15;
 }
 .back-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   font-weight: 700;
   text-decoration: none;
+  color: var(--radova-red);
+}
+.back-link a:hover,
+.back-link a:focus-visible {
+  color: var(--radova-red-2);
+  text-decoration: underline;
 }
 .single-split .meta-dl {
   margin-bottom: 1.5rem;
@@ -488,13 +690,13 @@ nav.pager {
   }
 }
 
-/* ---------- .editorial-prose: readable body column ---------- */
-/* As a standalone section on a listing page (e.g. the Security explainer). */
+/* ---------- .editorial-prose ---------- */
 main > .editorial-prose {
-  margin-top: calc(var(--pico-spacing) * 2);
+  margin-top: 2rem;
 }
 .editorial-prose {
-  padding: 1.5rem;
+  padding: 1.75rem;
+  border: 1px solid var(--radova-hairline);
   background: var(--radova-white);
 }
 @media (min-width: 768px) {
@@ -511,11 +713,11 @@ main > .editorial-prose {
   margin-bottom: 0;
 }
 .editorial-prose h2 {
-  --pico-font-size: 1.75rem;
+  --pico-font-size: 2rem; /* H4 32px */
   margin-top: 2rem;
 }
 .editorial-prose h3 {
-  --pico-font-size: 1.375rem;
+  --pico-font-size: 1.5rem; /* H5 24px */
   margin-top: 1.5rem;
 }
 .editorial-prose > h2:first-child,
@@ -524,16 +726,16 @@ main > .editorial-prose {
 }
 .editorial-prose blockquote {
   margin: 1.5rem 0;
-  padding: 0.25rem 0 0.25rem 1.25rem;
+  padding: 0.5rem 0 0.5rem 1.25rem;
   font-family: var(--radova-heading-font);
-  font-size: 1.25rem;
+  font-size: 1.25rem; /* 20px */
+  color: var(--radova-navy);
 }
 .editorial-prose pre,
 .table-scroll {
   max-width: 100%;
   overflow-x: auto;
 }
-/* Wrap wide tables in .table-scroll so they scroll inside the column, never the page. */
 .table-scroll {
   margin-bottom: var(--pico-typography-spacing-vertical);
 }
