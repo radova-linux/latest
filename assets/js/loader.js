@@ -1,6 +1,5 @@
-// Loads what the first paint does not need on the first interaction, like the Homepage:
-// css/fonts.css (until then the system font shows), js/latest.bundle.js?v=2 and htmx.
-// Paths are relative to this file.
+// Loads what the first paint does not need: js/latest.bundle.js?v=5 and htmx
+// (css/fonts.css is linked non-blocking in <head>). Paths are relative to this file.
 (function () {
   "use strict";
   var base = document.currentScript.src;
@@ -19,18 +18,18 @@
     var t = e.target.closest && e.target.closest("#theme-toggle, #lang-toggle, .nav-toggle, #about-menu-btn, .d-content-back");
     if (!t || ready) return;
     pending = t;
+    load(); // a click that came without a pointer or key event first (assistive tech) still loads the bundle
   }
 
   function load() {
     if (loaded) return;
     loaded = true;
-    // ponytail: fonts.css already loaded non-blocking in <head>
     // htmx starts only before DOMContentLoaded or once readyState is "complete"; in between it never does.
     function htmx() { add("script", { src: new URL("../htmx.min.js", base).href }); }
     if (document.readyState === "complete") htmx();
     else addEventListener("load", htmx, { once: true });
     add("script", {
-      src: new URL("latest.bundle.js?v=2", base).href,
+      src: new URL("latest.bundle.js?v=5", base).href,
       onload: function () {
         ready = true;
         document.removeEventListener("click", onClick, true);
@@ -40,7 +39,7 @@
   }
 
   document.addEventListener("click", onClick, true);
-  ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (type) {
+  ["pointerdown", "keydown", "touchstart", "scroll", "mouseover", "focusin"].forEach(function (type) {
     addEventListener(type, load, { once: true, passive: true });
   });
 
@@ -51,4 +50,8 @@
       load();
     }
   } catch (_) {}
+
+  // Otherwise load it right after the DOM is ready, without waiting for an interaction.
+  if (document.readyState === "complete" || document.readyState === "interactive") setTimeout(load, 1);
+  else document.addEventListener("DOMContentLoaded", function () { setTimeout(load, 1); }, { once: true });
 })();
